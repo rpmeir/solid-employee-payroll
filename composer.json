@@ -12,6 +12,7 @@
     },
     "autoload": {
         "psr-4": {
+            "App\\": "public/",
             "Src\\": "src/",
             "Tests\\": "tests/"
         }
@@ -26,5 +27,9 @@
         "lint": "vendor/bin/phpstan analyse src tests --level max",
         "insights": "vendor/bin/phpinsights",
         "fix": "vendor/bin/phpinsights --fix"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.9",
+        "slim/slim": "^4.14"
     }
 }

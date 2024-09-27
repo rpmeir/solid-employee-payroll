@@ -16,8 +16,8 @@ create table if not exists emp.employee (
 create table if not exists emp.time_record (
     time_record_id serial primary key,
     employee_id integer,
-    checkin_time timestamp,
-    checkout_time timestamp,
+    checkin_date timestamp,
+    checkout_date timestamp,
     foreign key (employee_id) references emp.employee(employee_id)
 );
 
