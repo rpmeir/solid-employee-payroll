@@ -11,12 +11,10 @@ describe('MainTest', function () {
             'month' => 12,
             'year' => 2023,
         ];
-        $httpClient = new Client(['base_uri' => 'http://localhost:8080']);
-        $response = $httpClient->request('POST', '/calculate_payroll', ['json' => $input]);
-        expect($response->getStatusCode())->toBe(200);
-        $data = json_decode((string) $response->getBody());
-        expect($data->employeeName)->toBe('Pedro Silva');
-        expect($data->salary)->toBe(2000);
+        $response = (new Client(['base_uri' => 'http://localhost:8080']))->request('POST', '/calculate_payroll', ['json' => $input]);
+        $output = json_decode((string) $response->getBody());
+        expect($output->employeeName)->toBe('Pedro Silva');
+        expect($output->salary)->toBe(2000);
     });
 
     test('Deve calcular a folha de pagamento para um funcionário que ganha salário fixo', function () {
@@ -25,11 +23,21 @@ describe('MainTest', function () {
             'month' => 12,
             'year' => 2023,
         ];
-        $httpClient = new Client(['base_uri' => 'http://localhost:8080']);
-        $response = $httpClient->request('POST', '/calculate_payroll', ['json' => $input]);
-        expect($response->getStatusCode())->toBe(200);
-        $data = json_decode((string) $response->getBody());
-        expect($data->employeeName)->toBe('Ana Costa');
-        expect($data->salary)->toBe(4750);
+        $response = (new Client(['base_uri' => 'http://localhost:8080']))->request('POST', '/calculate_payroll', ['json' => $input]);
+        $output = json_decode((string) $response->getBody());
+        expect($output->employeeName)->toBe('Ana Costa');
+        expect($output->salary)->toBe(4750);
+    });
+
+    test('Deve calcular a folha de pagamento para um funcionário que ganha salário voluntário', function () {
+        $input = [
+            'employeeId' => 3,
+            'month' => 12,
+            'year' => 2023,
+        ];
+        $response = (new Client(['base_uri' => 'http://localhost:8080']))->request('POST', '/calculate_payroll', ['json' => $input]);
+        $output = json_decode((string) $response->getBody());
+        expect($output->employeeName)->toBe('Sergio Oliveira');
+        expect($output->salary)->toBe(0);
     });
 });

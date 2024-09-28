@@ -16,7 +16,8 @@ $app->get('/', function (Request $request, Response $response) {
 });
 
 $app->post('/calculate_payroll', function (Request $request, Response $response) {
-    $calculatePayroll = new \Src\CalculatePayroll();
+    $emplyeeDataDatabase = new \Src\EmployeeDataDatabase();
+    $calculatePayroll = new \Src\CalculatePayroll($emplyeeDataDatabase);
     $input = json_decode((string) $request->getBody());
     $output = $calculatePayroll->execute($input);
     $payload = json_encode($output, JSON_PRETTY_PRINT);
